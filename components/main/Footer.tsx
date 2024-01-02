@@ -37,8 +37,8 @@ const Footer = () => {
              variants={slideInFromRight(0.9)}
             className="text-md text-gray-300 ml-[60px]  max-w-[400px] "
           >
-            I will read all emails. Send me any message you want and i'll get
-            back to you. I need your Name and Email Address, I'll reply as
+            I will read all emails. Send me any message you want and i&apos;ll get
+            back to you. I need your Name and Email Address, I&apos;ll reply as
             quickly as possible.
           </motion.p>
           <div className="flex m-10 ">

@@ -43,10 +43,10 @@ const HeroContent = () => {
               className="text-lg text-gray-300 my-5 max-w-[600px] "
             >
               A passionate and innovative Full Stack Developer based from India.
-              With a background in Computer Science and Engineering, I've
+              With a background in Computer Science and Engineering, I&apos;ve
               specialized in the MERN (MongoDB, Express.js, React, Node.js)
               stack. My journey in the world of technology has been an exciting
-              adventure, and I'm thrilled to share my experiences and creations
+              adventure, and I&apos;m thrilled to share my experiences and creations
               with you.
             </motion.p>
           </span>
