@@ -4,7 +4,7 @@ import "./globals.css";
 import StarCanvas from "@/components/main/StarBackground";
 import Navbar from "@/components/main/Navbar";
 import Footer from "@/components/main/Footer";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ export default function RootLayout({
         <StarCanvas/>
         <Navbar/>
         {children}
+        <SpeedInsights />
         <Footer/>
       </body>
     </html>
