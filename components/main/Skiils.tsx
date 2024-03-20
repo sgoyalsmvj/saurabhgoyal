@@ -9,8 +9,8 @@ import {
 import SkillText from "../sub/SkillText";
 const Skiils = () => {
   return (
-    <section
-      className="flex flex-col items-center justify-center gap-3 h-full relative overflow-hidden pb-50 py-20"
+    <div
+      className="flex flex-col z-[20] items-center justify-center gap-3 h-full relative overflow-hidden sm:pb-50  pt-7 sm:py-20  "
       id="skills"
       style={{ transform: "scale(0.9)" }}
     >
@@ -38,7 +38,6 @@ const Skiils = () => {
           />
         ))}
       </div>
-      
 
       <div className="flex flex-row justify-around flex-wrap mt-4 gap-7 items-center">
         {Other_skill.map((image, index) => (
@@ -64,7 +63,7 @@ const Skiils = () => {
           ></video>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

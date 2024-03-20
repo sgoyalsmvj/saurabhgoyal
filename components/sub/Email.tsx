@@ -43,59 +43,61 @@ const ContactForm = () => {
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={slideInFromLeft(0.9)}
-      className="flex flex-col items-start justify-center mr-[70px] "
-    >
-      <motion.div className="Welcome-box py-[8px] mt-4 mb-2 px-[17px] border border-[#7042f88b] opacity-[0.9] mx-2">
-        <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-        <h1 className="Welcome-text text-[13px]">Send Me A Message</h1>
-      </motion.div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-end justify-center border border-[#2A0E61] px-[50px] py-[30px] rounded"
-        id="emailForm"
+    <div className="flex justify-center items-center w-full mx-8 ">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={slideInFromLeft(0.9)}
+        className="flex flex-col items-start justify-center    "
       >
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-[20vw] h-[6vh] m-2 py-2 px-3 button-primary  rounded"
-          placeholder="Name"
-        />
+        <motion.div className="Welcome-box py-[8px] mt-4 mb-2 px-[17px] border border-[#7042f88b] opacity-[0.9] mx-2">
+          <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
+          <h1 className="Welcome-text text-[13px]">Send Me A Message</h1>
+        </motion.div>
 
-        <br />
-
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email Address"
-          className="w-[20vw] h-[6vh] m-2 py-2 px-3 button-primary rounded"
-        />
-
-        <br />
-
-        <textarea
-          value={message}
-          rows={3}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Message"
-          className="w-[20vw] m-2 py-2 px-3 button-primary rounded"
-        />
-
-        <br />
-        <button
-          type="submit"
-          className="py-[7px] button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px] px-[10px] m-2 flex items-center  border-none"
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center border border-[#2A0E61] px-[50px] py-[30px] rounded"
+          id="emailForm"
         >
-          <RiSendPlaneLine className="mr-2" /> Send Message
-        </button>
-      </form>
-    </motion.div>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className=" m-2 py-2 px-3 w-full  button-primary  rounded"
+            placeholder="Name"
+          />
+
+          <br />
+
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email Address"
+            className=" m-2 py-2 px-3 w-full button-primary rounded"
+          />
+
+          <br />
+
+          <textarea
+            value={message}
+            rows={3}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Message"
+            className="m-2 py-2 w-full px-3 button-primary rounded"
+          />
+
+          <br />
+          <button
+            type="submit"
+            className="py-[7px] button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px] px-[10px] m-2 flex items-center  border-none"
+          >
+            <RiSendPlaneLine className="mr-2" /> Send Message
+          </button>
+        </form>
+      </motion.div>
+    </div>
   );
 };
 

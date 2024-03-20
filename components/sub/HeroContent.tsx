@@ -10,16 +10,26 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import Email from "./Email";
-
+import my from "@/public/my.png";
 
 const HeroContent = () => {
   return (
     <motion.div
       initial="hidden"
       animate="visible"
-      className="flex flex-row items-center justify-center px-20 mt-40 w-full z-[20]"
+      className="flex flex-col sm:flex-row items-center mx-[12px] mt-52 text-center px-10 sm:px-20 justify-center sm:mt-20 w-full z-[20]"
     >
-      <div className="h-full w-full flex flex-col gap-5 justify-center m-auto text-start ">
+      <div className="w-full h-full justify-center items-center mt-4 mb-6 sm:hidden ">
+        <Image
+          src={my}
+          alt="work icons"
+          height={650}
+          width={650}
+          priority
+          className="rounded-full"
+        />
+      </div>
+      <div className="h-full w-full flex flex-col gap-3 justify-center m-auto text-start ">
         <motion.div
           variants={slideInFromTop}
           className="Welcome-box py-[8px] px-[17px] border border-[#7042f88b] opacity-[0.9] "
@@ -30,7 +40,7 @@ const HeroContent = () => {
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="flex flex-col gap-6 mt-6 text-7xl  text-white max-w-[600px] w-auto h-auto "
+          className="flex flex-col gap-6 mt-6 text-3xl sm:text-7xl  text-white max-w-[600px] w-auto h-auto "
         >
           <span>
             <span className="text-transparent bg-clip-text  font-bold bg-gradient-to-r from-purple-500 to-cyan-500 text-cool">
@@ -45,9 +55,11 @@ const HeroContent = () => {
               A passionate and innovative Full Stack Developer based from India.
               With a background in Computer Science and Engineering, I&apos;ve
               specialized in the MERN (MongoDB, Express.js, React, Node.js)
-              stack. My journey in the world of technology has been an exciting
-              adventure, and I&apos;m thrilled to share my experiences and creations
-              with you.
+              stack.
+              <br />
+              My journey in the world of technology has been an exciting
+              adventure, and I&apos;m thrilled to share my experiences and
+              creations with you.
             </motion.p>
           </span>
         </motion.div>
@@ -62,7 +74,7 @@ const HeroContent = () => {
       </div>
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-full flex justify-center items-center"
+        className="w-full h-full justify-center items-center hidden sm:flex"
       >
         <Image
           src="./mainIconsdark.svg"

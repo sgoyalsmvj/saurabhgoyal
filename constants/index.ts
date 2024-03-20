@@ -3,19 +3,25 @@ export const Socials = [
     name: "Email",
     src: "/mail.svg",
     link: "#emailForm",
-    target:"_self"
+    target: "_self",
+  },
+  {
+    name: "Github",
+    src: "/github.png",
+    link: "https://github.com/sgoyalsmvj",
+    target: "__black",
   },
   {
     name: "Twitter",
     src: "/twitter.svg",
     link: "https://twitter.com/SgxZoro",
-    target : '__blank'
+    target: "__blank",
   },
   {
     name: "LinkedIn",
     src: "/linkedin.svg",
     link: "https://www.linkedin.com/in/saurabhgoyal12/",
-    target : '__blank'
+    target: "__blank",
   },
 ];
 
@@ -122,12 +128,9 @@ export const Backend_skill = [
     width: 80,
     height: 80,
   },
- 
 ];
 
-export const Full_stack = [
-  
-];
+export const Full_stack = [];
 
 export const Other_skill = [
   {
