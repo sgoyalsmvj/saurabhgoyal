@@ -19,7 +19,7 @@ const HeroContent = () => {
       animate="visible"
       className="flex flex-col sm:flex-row items-center mx-[12px] mt-52 text-center px-10 sm:px-20 justify-center sm:mt-20 w-full z-[20]"
     >
-      <div className="w-full h-full justify-center items-center  mb-6 sm:hidden ">
+      {/* <div className="w-full h-full justify-center items-center  mb-6 sm:hidden ">
         <Image
           src={my}
           alt="work icons"
@@ -28,7 +28,7 @@ const HeroContent = () => {
           priority
           className="rounded-full"
         />
-      </div>
+      </div> */}
       <div className="h-full w-full flex flex-col gap-3 justify-center m-auto text-start ">
         <motion.div
           variants={slideInFromTop}
