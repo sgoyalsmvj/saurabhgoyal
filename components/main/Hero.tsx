@@ -1,23 +1,9 @@
-import React from "react";
 import HeroContent from "../sub/HeroContent";
 
-const Hero = () => {
+export default function Hero() {
   return (
-    <div
-      className="relative flex  flex-col h-full w-full z-[20]   "
-      id="about-me"
-    >
-      <video
-        autoPlay
-        loop
-        muted
-        className="rotate-180 fixed top-[-340px] left-0 z-[1] opacity-2 sm:opacity-2 w-full h-full object-cover"
-      >
-        <source src="./blackhole.webm" type="video/webm" />
-      </video>
+    <section id="top" className="relative">
       <HeroContent />
-    </div>
+    </section>
   );
-};
-
-export default Hero;
+}

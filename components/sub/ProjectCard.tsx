@@ -1,51 +1,45 @@
-"use client";
-import { slideInFromLeft } from "@/utils/motion";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
-import { FaGithub } from "react-icons/fa";
-import { SlGlobe } from "react-icons/sl";
+import { FiArrowUpRight, FiGithub } from "react-icons/fi";
+import type { Project } from "@/constants";
 
-interface Props {
-  src: string;
-  title: string;
-  githubLink: string;
-  link: string;
-}
-const ProjectCard = ({ src, title, link, githubLink }: Props) => {
+export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <motion.div className="relative overflow-hidden rounded-lg shadow-lg  md:w-auto border border-[#2A0E61]">
-      <Image
-        src={src}
-        alt={title}
-        width={1000}
-        height={1000}
-        className="w-full object-contain"
-      />
-      <div className="relative p-4 flex flex-col">
-        <h1 className="text-2xl font-semibold text-white text-center">
-          {title}
-        </h1>
-        {/* <p className="mt-2 text-gray-300">{description}</p> */}
-        <div className="flex items-center justify-start px-4">
-          <motion.a
-            className="text-gray-200 flex items-center mr-2 text-xs Welcome-text"
-            href={link}
-          >
-            <SlGlobe className="m-2" />
-            Site
-          </motion.a>
-          <motion.a
-            className="text-gray-200 flex items-center text-xs Welcome-text"
-            href={githubLink}
-          >
-            <FaGithub className="m-2" />
-            Github
-          </motion.a>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+    <article className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-6 transition duration-300 ease-out-expo hover:-translate-y-1 hover:border-accent/60 md:p-8">
+      <h3 className="font-display text-2xl font-bold text-ink transition-colors group-hover:text-accent">
+        {project.title}
+      </h3>
 
-export default ProjectCard;
+      <p className="mt-3 leading-relaxed text-muted">{project.blurb}</p>
+
+      <div className="mb-6 mt-6 flex flex-wrap gap-2">
+        {project.stack.map((tech) => (
+          <span key={tech} className="tag">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto flex items-center gap-5 border-t border-border pt-5 font-mono text-sm">
+        {project.demo ? (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-ink transition-colors hover:text-accent"
+          >
+            Live <FiArrowUpRight className="h-4 w-4" />
+          </a>
+        ) : null}
+        {project.code ? (
+          <a
+            href={project.code}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
+          >
+            <FiGithub className="h-4 w-4" /> Code
+          </a>
+        ) : null}
+      </div>
+    </article>
+  );
+}
