@@ -1,53 +1,57 @@
 "use client";
-import React from "react";
-import ProjectCard from "../sub/ProjectCard";
-import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from "@/utils/motion";
-import { SparklesIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
-const Projects = () => {
-  return (
-    <div
-      className="flex flex-col items-center justify-center py-3 sm:py-10 sm:pb-60 z-[20]  "
-      id="projects"
-    >
-      <h1 className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-20">
-        My Projects
-      </h1>
-      <div className="h-full w-full flex flex-col sm:flex-row gap-10 px-7 sm:px-10">
-        <ProjectCard
-          src="/thehomavoyage.png"
-          title="The Home Voyage - Booking App"
-          githubLink="https://github.com/sgoyalsmvj/TheHomeVoyage"
-          link="https://the-home-voyage.vercel.app/"
-        />
-        <ProjectCard
-          src="/gpt3.png"
-          title="GPT3 - A Modern Landing Page"
-          link="https://master--idyllic-bavarois-ebecac.netlify.app/"
-          githubLink="https://github.com/sgoyalsmvj/GPT3_static_page"
-        />
-        <ProjectCard
-          src="/taijutsu.png"
-          title="The Taijutsu - A Fighting Game"
-          githubLink="https://github.com/sgoyalsmvj/Taijutsu"
-          link="https://taijutsu.netlify.app/"
-        />
-      </div>
-      <motion.a
-        initial="hidden"
-        animate="visible"
-        variants={slideInFromLeft(1)}
-        className="py-[7px] button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px] px-[20px] m-[20px]"
-        href="https://github.com/sgoyalsmvj?tab=repositories"
-      >
-        More Projects!
-      </motion.a>
-    </div>
-  );
-};
 
-export default Projects;
+import { motion } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
+import { projects } from "@/constants";
+import { fadeUp, stagger } from "@/utils/motion";
+import ProjectCard from "../sub/ProjectCard";
+
+export default function Projects() {
+  return (
+    <section id="projects" className="py-20 md:py-28">
+      <div className="container-page">
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          <motion.p variants={fadeUp} className="eyebrow">
+            Selected projects
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            className="mt-3 max-w-3xl font-display text-display-sm font-extrabold text-ink"
+          >
+            Things I&apos;ve built outside of work.
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mt-12 grid gap-6 md:grid-cols-2"
+        >
+          {projects.map((project) => (
+            <motion.div key={project.title} variants={fadeUp}>
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <div className="mt-8">
+          <a
+            href="https://github.com/sgoyalsmvj?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-sm text-muted transition-colors hover:text-accent"
+          >
+            More on GitHub <FiArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}

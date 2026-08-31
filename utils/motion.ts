@@ -1,39 +1,22 @@
-export function slideInFromLeft(delay: number) {
-    return {
-      hidden: { x: -100, opacity: 0 },
-      visible: {
-        x: 0,
-        opacity: 1,
-        transition: {
-          delay: delay,
-          duration: 0.5,
-        },
-      },
-    };
-  }
-  
-  export function slideInFromRight(delay: number) {
-    return {
-      hidden: { x: 100, opacity: 0 },
-      visible: {
-        x: 0,
-        opacity: 1,
-        transition: {
-          delay: delay,
-          duration: 0.5,
-        },
-      },
-    };
-  }
-  
-  export const slideInFromTop = {
-    hidden: { y: -100, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        delay: 0.5,
-        duration: 0.5,
-      },
-    },
-  };
+import type { Variants } from "framer-motion";
+
+// Shared motion primitives. Reduced-motion is handled globally in CSS.
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+export const fadeIn: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } },
+};
+
+// Parent that staggers its direct children (each using fadeUp/fadeIn).
+export const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.04 } },
+};

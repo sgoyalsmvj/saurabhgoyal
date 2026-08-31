@@ -1,40 +1,49 @@
-"use client";
-import React from "react";
-import {
-  RxDiscordLogo,
-  RxGithubLogo,
-  RxInstagramLogo,
-  RxTwitterLogo,
-  RxLinkedinLogo,
-} from "react-icons/rx";
+import { FiGithub, FiLinkedin, FiTwitter, FiMail } from "react-icons/fi";
+import type { IconType } from "react-icons";
+import { socials } from "@/constants";
 
-import Email from "../sub/Email";
-import { FaYoutube } from "react-icons/fa";
-import { motion } from "framer-motion";
-import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from "@/utils/motion";
-import { SparklesIcon } from "@heroicons/react/24/solid";
-import ContactMe from "./ContactMe";
-
-const Footer = () => {
-  return (
-    <motion.div
-      className="relative flex flex-col items-center justify-center h-full w-full text-gray-200 z-[20] pb-[40px]  "
-      id="contact-me"
-    >
-      <h1 className="text-[40px] sm:text-[50px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-5 mx-[60px]">
-        Contact Me
-      </h1>
-
-      <div className="flex flex-col sm:flex-row items-center justify-center ">
-        <Email />
-       <ContactMe/>
-      </div>
-    </motion.div>
-  );
+const icons: Record<string, IconType> = {
+  GitHub: FiGithub,
+  LinkedIn: FiLinkedin,
+  Twitter: FiTwitter,
+  Email: FiMail,
 };
 
-export default Footer;
+export default function Footer() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-border">
+      <div className="container-page flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <a href="#top" className="font-display text-lg font-extrabold tracking-tight text-ink">
+            Saurabh<span className="text-accent">.</span>
+          </a>
+          <p className="mt-1 font-mono text-xs text-muted">Built with Next.js &amp; Tailwind CSS.</p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {socials.map((s) => {
+            const Icon = icons[s.name];
+            return (
+              <a
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.name}
+                className="text-muted transition-colors hover:text-accent"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="container-page pb-8 font-mono text-xs text-muted/70">
+        © {year} Saurabh Goyal
+      </div>
+    </footer>
+  );
+}

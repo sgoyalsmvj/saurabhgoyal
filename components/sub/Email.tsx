@@ -1,104 +1,105 @@
 "use client";
+
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import { RiSendPlaneLine } from "react-icons/ri";
+import { FiSend } from "react-icons/fi";
 
-// import dotenv from "dotenv";
-import { motion } from "framer-motion";
-import { slideInFromLeft, slideInFromTop } from "@/utils/motion";
-import { SparklesIcon } from "@heroicons/react/24/solid";
+type Status = "idle" | "sending" | "sent" | "error";
 
-const ContactForm = () => {
+const fieldClass =
+  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
+
+export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Use your EmailJS template ID and user ID
-    const templateParams = {
-      from_name: name,
-      from_email: email,
-      message,
-    };
-
-    emailjs
-      .send(
+    setStatus("sending");
+    try {
+      await emailjs.send(
         process.env.NEXT_PUBLIC_SERVICE_ID as string,
         process.env.NEXT_PUBLIC_TEMPLATE_ID as string,
-        templateParams,
+        { from_name: name, from_email: email, message },
         process.env.NEXT_PUBLIC_USER_ID as string
-      )
-      .then(
-        (response) => {
-          alert("Email sent successfully:");
-          // Add any success message or redirect user after successful submission
-        },
-        (error) => {
-          alert("Email failed to send:");
-          // Add error handling, show a message to the user, etc.
-        }
       );
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
-    <div className="flex justify-center items-center w-full mx-8 ">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={slideInFromLeft(0.9)}
-        className="flex flex-col items-start justify-center    "
-      >
-        <motion.div className="Welcome-box py-[8px] mt-4 mb-2 px-[17px] border border-[#7042f88b] opacity-[0.9] mx-2">
-          <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-          <h1 className="Welcome-text text-[13px]">Send Me A Message</h1>
-        </motion.div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="name" className="eyebrow">
+          Name
+        </label>
+        <input
+          id="name"
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={fieldClass}
+          placeholder="Your name"
+        />
+      </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center border border-[#2A0E61] px-[50px] py-[30px] rounded"
-          id="emailForm"
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="email" className="eyebrow">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={fieldClass}
+          placeholder="you@email.com"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="message" className="eyebrow">
+          Message
+        </label>
+        <textarea
+          id="message"
+          rows={4}
+          required
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className={`${fieldClass} resize-none`}
+          placeholder="What's on your mind?"
+        />
+      </div>
+
+      <div className="mt-1 flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className=" m-2 py-2 px-3 w-full  button-primary  rounded"
-            placeholder="Name"
-          />
+          {status === "sending" ? "Sending…" : "Send message"}
+          <FiSend className="h-4 w-4" />
+        </button>
 
-          <br />
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email Address"
-            className=" m-2 py-2 px-3 w-full button-primary rounded"
-          />
-
-          <br />
-
-          <textarea
-            value={message}
-            rows={3}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Message"
-            className="m-2 py-2 w-full px-3 button-primary rounded"
-          />
-
-          <br />
-          <button
-            type="submit"
-            className="py-[7px] button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px] px-[10px] m-2 flex items-center  border-none"
-          >
-            <RiSendPlaneLine className="mr-2" /> Send Message
-          </button>
-        </form>
-      </motion.div>
-    </div>
+        {status === "sent" && (
+          <p className="font-mono text-sm text-accent">Thanks — I&apos;ll be in touch.</p>
+        )}
+        {status === "error" && (
+          <p className="font-mono text-sm text-red-500">
+            Couldn&apos;t send. Please email me directly.
+          </p>
+        )}
+      </div>
+    </form>
   );
-};
-
-export default ContactForm;
+}

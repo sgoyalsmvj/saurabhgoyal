@@ -1,60 +1,57 @@
-import { Socials } from "@/constants";
-import Image from "next/image";
-import React from "react";
+"use client";
 
-const Navbar = () => {
+import { useEffect, useState } from "react";
+import { navLinks, profile } from "@/constants";
+import ThemeToggle from "../sub/ThemeToggle";
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md z-50 sm:px-10">
-      <div className="w-full h-full flex flex-row items-center justify-between px-8 sm:px-[10px]">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? "border-b border-border bg-bg/80 backdrop-blur-md" : "border-b border-transparent"
+      }`}
+    >
+      <nav className="container-page flex h-16 items-center justify-between">
         <a
-          href="#about-me"
-          className="h-auto w-auto flex flex-row items-center"
+          href="#top"
+          className="font-display text-lg font-extrabold tracking-tight text-ink"
         >
-          <Image
-            src="/my.png"
-            alt="logo"
-            width={50}
-            height={50}
-            priority
-            className="cursor-pointer hover:animate-slowspin  rounded-full  mx-5"
-          />
-          <span className="font-bold ml-[1opx] hidden md:block text-gray-300">
-            Saurabh Goyal
-          </span>
+          Saurabh<span className="text-accent">.</span>
         </a>
-        <div className="w-[500px] h-full items-center justify-between md:mr-20 hidden sm:flex flex-row  ">
-          <div className="flex itms-center justify-between w-full h-auto border border-[#7042f861] bg-[#0300145e] mr-[15px] px-[20px] py-[10px] rounded-full text-gray-200">
-            <a href="#about-me" className="cursor-pointer">
-              About Me
-            </a>
-            <a href="#skills" className="cursor-pointer">
-              Skills
-            </a>
-            <a href="#projects" className="cursor-pointer">
-              Projects
-            </a>
-            <a href="#contact-me" className="cursor-pointer">
-              Contact Me
-            </a>
-          </div>
-        </div>
 
-        <div className="flex flex-row gap-5 ">
-          {Socials.map((social) => (
-            <a href={social.link} key={social.name} target={social.target}>
-              <Image
-                src={social.src}
-                alt={social.name}
-                key={social.name}
-                width={24}
-                height={24}
-              />
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="font-mono text-sm text-muted transition-colors hover:text-ink"
+            >
+              {link.label}
             </a>
           ))}
         </div>
-      </div>
-    </div>
-  );
-};
 
-export default Navbar;
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeToggle />
+          <a
+            href={profile.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm"
+          >
+            Résumé
+          </a>
+        </div>
+      </nav>
+    </header>
+  );
+}
